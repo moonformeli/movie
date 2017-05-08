@@ -14,7 +14,7 @@ const Header = (props, context) => {
         <div>
             <div className="logo">
                 velopert
-            </div>
+            </div> 
             <div className="menu">
                 <MenuItem to={'/'} active={router.isActive('/', true)}>홈</MenuItem>
                 <MenuItem to={'/about'} active={router.isActive('/about')}>소개</MenuItem>
