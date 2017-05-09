@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import Home from './containers/Home';
-import About from './containers/About';
+//import About from './containers/About';
 import Posts from './containers/Posts';
 import Login from './components/Login';
+import Movie from './components/Movie';
 
 import './index.css';
 
@@ -18,7 +19,9 @@ class Routing extends React.Component {
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home}/>
-        <Route path="about" component={About}/>
+        <Route path="movie/">
+          <Route path="choose" component={Movie}/>
+        </Route>
         <Route path="post" component={Posts}/>
       </Route>
     </Router>  
