@@ -1,5 +1,12 @@
 export const STORE_API_MOVIES = "STORE_API_MOVIES";
 export const PAGE_MOVIE_API = "PAGE_MOVIE_API";
+export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER"
+
+export function removeMovies_API() {
+    return {
+        type: RESET_MOVIE_CONTAINER
+    }
+}
 
 export function storeMovies_API(data){
     return {

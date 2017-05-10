@@ -41,10 +41,9 @@ export default function aboutAPIs(state = initialState, action) {
                         }
                     }
                 )
-                //page: state.page + 1
             };
-            /*
-        case types.MOVIE_EMPTY:
+            
+        case types.RESET_MOVIE_CONTAINER:
             return {
               ...state, movieData: [ [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[] ], 
               page: update(
@@ -54,6 +53,7 @@ export default function aboutAPIs(state = initialState, action) {
                         }
                     }            
             )};
+        /*
         case types.MOVIE_RATING:
             return {...state, rating: update(
                 state.rating, {
