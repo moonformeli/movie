@@ -19,5 +19,5 @@ class API_Funcs {
     }
     
 }
-
+ 
 export default API_Funcs;
