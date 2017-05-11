@@ -3,11 +3,11 @@ export const PAGE_MOVIE_API = "PAGE_MOVIE_API";
 export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER";
 export const SELECTED_GENRE = "SELECTED_GENRE";
 
-export function set_selectedGenre(genre, pointer) {
+export function set_selectedGenre(genre, currentIndex) {
     return {
         type: SELECTED_GENRE,
         genre,
-        pointer
+        currentIndex
     }
 }
 
@@ -50,7 +50,7 @@ export function moviesFromAPI(url) {
                         state.overview = data.overview;
                         state.release_date = data.release_date;
                         state.vote_arrange = data.vote_average;
-                        state.vote_count = data.vote_count;
+                        //state.vote_count = data.vote_count;
                         state.poster_path = "http://image.tmdb.org/t/p/w185/" + data.poster_path;
                         state.popularity = data.popularity;
                         
