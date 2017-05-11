@@ -1,0 +1,51 @@
+li {
+    list-style-type: none;
+}
+
+#movie_category {
+    position:relative;
+    top:20px;
+    left:12.5%;
+}
+
+
+#movie_category li {
+    display: inline-block;
+    padding: 10px;
+    width: 100px;
+    color: #009688;
+    border: 1px solid #EDEDED;
+    background: #ffffff;
+    float:left;
+    text-align:center;
+    cursor: pointer;
+}
+
+#movie_category > li:hover {
+    background: #009688;
+    color: #ffffff;
+}
+
+.clear {
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.Grid-list {
+    position: relative;
+    top: 50px;
+    left: 10%;
+}
+
+.rating {
+    width: 120px;
+    margin: 0 auto;
+}
+
+.li-clicked {
+    background: #009688;
+    color: #ffffff;
+}

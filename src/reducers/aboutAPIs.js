@@ -3,7 +3,7 @@ import update from 'react-addons-update';
 
 const initialState = {
     genre: 28,
-    currentIndex: 0,
+    pointer: 0,
     
     movieData:[
         [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
@@ -22,13 +22,13 @@ export default function aboutAPIs(state = initialState, action) {
         case types.STORE_API_MOVIES:
             return {...state, movieData: update(
                 state.movieData, {
-                    [state.currentIndex]: {
+                    [state.pointer]: {
                         $push: [action.data]
                     }
                 }
                 ), rating: update(
                     state.rating, {
-                        [state.currentIndex]: {
+                        [state.pointer]: {
                             $push: [{stars:0}]
                         }
                     }        
@@ -36,8 +36,8 @@ export default function aboutAPIs(state = initialState, action) {
         case types.PAGE_MOVIE_API:
             return {...state, page: update(
                     state.page, {
-                        [state.currentIndex] : {
-                            page: {$set: state.page[state.currentIndex].page + 1}
+                        [state.pointer] : {
+                            page: {$set: state.page[state.pointer].page + 1}
                         }
                     }
                 )
@@ -48,16 +48,21 @@ export default function aboutAPIs(state = initialState, action) {
               ...state, movieData: [ [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[] ], 
               page: update(
                     state.page, {
-                        [state.currentIndex]: {
+                        [state.pointer]: {
                             page: {$set:1}
                         }
                     }            
             )};
+        case types.SELECTED_GENRE:
+            return { ...state,
+                genre: action.genre,
+                pointer: action.pointer
+            }
         /*
         case types.MOVIE_RATING:
             return {...state, rating: update(
                 state.rating, {
-                    [state.currentIndex]: {
+                    [state.pointer]: {
                         [action.index]: {
                             stars: {$set:action.stars}                            
                         }
@@ -67,7 +72,7 @@ export default function aboutAPIs(state = initialState, action) {
         case types.MOVIE_RATING_HEROKU:
             return {...state, rating: update(
                 state.rating, {
-                    [action.currentIndex]: {
+                    [action.pointer]: {
                         [action.index]: {
                             stars: {$set:action.stars}
                         }
@@ -77,12 +82,12 @@ export default function aboutAPIs(state = initialState, action) {
         case types.MOVIE_GENRE:
             return {...state, 
                 genre: action.genre,
-                currentIndex: action.index
+                pointer: action.index
             };
         case types.PAGE_FIRST_LOADING:
             return {...state, page: update(
                 state.page, {
-                    [state.currentIndex]: {
+                    [state.pointer]: {
                         isFirst: {$set:false}
                     }
                 }

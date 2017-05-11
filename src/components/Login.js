@@ -147,10 +147,10 @@ class Login extends React.Component {
             {this.state.isLoading === true ? <div className="spinner spinner-visible"></div> : <div className="spinner spinner-invisible"></div>}
             <form onSubmit={this.signUp} className={this.state.isLoading === true ? 'formFade' : null}>
                 <label className={this.state.signUpId ? 'active' : null}>Username</label>
-    			<input name="signUpId" type="text" value={this.state.signUpId} onChange={this.handleChange_signup} required/><br/>
-    			<label className={this.state.signUpPw ? 'active' : null}>Password</label>
-    			<input name="signUpPw" type="password" value={this.state.signUpPw} onChange={this.handleChange_signup} required/><br/>
-    			<button type="submit" id="login-button">Sign Up</button>
+          			<input name="signUpId" type="text" value={this.state.signUpId} onChange={this.handleChange_signup} required/><br/>
+          			<label className={this.state.signUpPw ? 'active' : null}>Password</label>
+          			<input name="signUpPw" type="password" value={this.state.signUpPw} onChange={this.handleChange_signup} required/><br/>
+          			<button type="submit" id="login-button">Sign Up</button>
             </form>
           </div>
         );

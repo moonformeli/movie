@@ -1,6 +1,15 @@
 export const STORE_API_MOVIES = "STORE_API_MOVIES";
 export const PAGE_MOVIE_API = "PAGE_MOVIE_API";
-export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER"
+export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER";
+export const SELECTED_GENRE = "SELECTED_GENRE";
+
+export function set_selectedGenre(genre, pointer) {
+    return {
+        type: SELECTED_GENRE,
+        genre,
+        pointer
+    }
+}
 
 export function removeMovies_API() {
     return {
