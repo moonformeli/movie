@@ -81,7 +81,7 @@ class Movies extends React.Component {
             this.loadMoreData();
         });
     }
-    
+     
     loadMoreData() {
         let funcs = new API_Funcs();
         funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre);
