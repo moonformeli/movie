@@ -20,7 +20,7 @@ class Movies extends React.Component {
     constructor(props){
         super(props);
         this.state={
-          //data: {},
+          data: {},
           genre: 28,
           clickedNo: 0
         };
@@ -49,7 +49,7 @@ class Movies extends React.Component {
         if(JSON.stringify(nextProps.genre) != JSON.stringify(this.props.genre)){
             this.props.fetchData('https://api.themoviedb.org/3/discover/movie?api_key=' + RESOURCES.KEY + 
                 '&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + 
-                this.props.page[this.props.currentIndex].page + '&with_genres=' + nextProps.genre);
+                this.props.page[this.props.pointer].page + '&with_genres=' + nextProps.genre);
         }
     }*/
     
@@ -69,14 +69,22 @@ class Movies extends React.Component {
     }
     
     listItemClick(genre, listIndex) {
-        this.setState({ clickedNo: listIndex });
-        let currentIndex = listIndex;
-        store.dispatch(actions.set_selectedGenre(genre, currentIndex));
+        new Promise((resolve, reject) => {
+            resolve();
+        })
+        .then(() => this.setState({clickedNo: listIndex}))
+        .then(() => {
+            let pointer = listIndex;
+            store.dispatch(actions.set_selectedGenre(genre, pointer));
+        })
+        .then(() => {
+            this.loadMoreData();
+        });
     }
     
     loadMoreData() {
         let funcs = new API_Funcs();
-        funcs.movieFromAPIServer(this.props.page[this.props.currentIndex].page, this.props.genre);
+        funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre);
     }
     
     render() {
@@ -87,7 +95,7 @@ class Movies extends React.Component {
                 title: data.original_title,
                 rating: newRating,
                 img: data.poster_path,
-                genre: this.props.currentIndex,
+                genre: this.props.pointer,
                 index: i,
                 isThisFirstTimeToMakeId: true
             };
@@ -133,7 +141,7 @@ class Movies extends React.Component {
             .done(() => this.props.loadData());
         };
         
-        const movieLists = this.props.movieData[this.props.currentIndex].map((data, i) => {
+        const movieLists = this.props.movieData[this.props.pointer].map((data, i) => {
             return (
                 <li key={`img-${i}-${data.original_title}`}>
                     <img
@@ -147,8 +155,8 @@ class Movies extends React.Component {
                         <ReactStars
                             iKey={i}
                             data={data}
-                            //value={this.props.movieData[this.props.currentIndex][i].rating}
-                            //value={this.props.rating[this.props.currentIndex][i].stars}
+                            //value={this.props.movieData[this.props.pointer][i].rating}
+                            //value={this.props.rating[this.props.pointer][i].stars}
                             count={5}
                             //onChange={ratingChanged}
                             size={24}
@@ -213,7 +221,7 @@ Movies.defaultProps = defaultProps;
 let mapStateToProps = (state) => {
     return {
         movieData: state.aboutAPIs.movieData,
-        currentIndex: state.aboutAPIs.currentIndex,
+        pointer: state.aboutAPIs.pointer,
         page: state.aboutAPIs.page,
         genre: state.aboutAPIs.genre
     };
