@@ -22,7 +22,7 @@ class Movies extends React.Component {
         this.state={
           data: {},
           genre: 28,
-          clickedNo: 0
+          clickedNo: 0,
         };
         
         this.loadMoreData = this.loadMoreData.bind(this);
@@ -69,9 +69,7 @@ class Movies extends React.Component {
     }
     
     listItemClick(genre, listIndex) {
-        new Promise((resolve, reject) => {
-            resolve();
-        })
+        new Promise((resolve, reject) => resolve())
         .then(() => this.setState({clickedNo: listIndex}))
         .then(() => {
             let pointer = listIndex;
@@ -79,7 +77,8 @@ class Movies extends React.Component {
         })
         .then(() => {
             this.loadMoreData();
-        });
+        })
+        .then(() => console.log('뤠이팅:' + JSON.stringify(this.props.rating[this.props.pointer])));
     }
      
     loadMoreData() {
@@ -99,7 +98,6 @@ class Movies extends React.Component {
                 index: i,
                 isThisFirstTimeToMakeId: true
             };
-            console.log('genre:' + state.genre);
             
             
             $.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
@@ -138,7 +136,7 @@ class Movies extends React.Component {
                     
                 }
             })
-            .done(() => this.props.loadData());
+            .done(() => this.loadMoreData());
         };
         
         const movieLists = this.props.movieData[this.props.pointer].map((data, i) => {
@@ -156,9 +154,9 @@ class Movies extends React.Component {
                             iKey={i}
                             data={data}
                             //value={this.props.movieData[this.props.pointer][i].rating}
-                            //value={this.props.rating[this.props.pointer][i].stars}
+                            value={this.props.rating[this.props.pointer][i].stars}
                             count={5}
-                            //onChange={ratingChanged}
+                            onChange={ratingChanged}
                             size={24}
                             color2={'#ffd700'}
                         />
@@ -223,7 +221,8 @@ let mapStateToProps = (state) => {
         movieData: state.aboutAPIs.movieData,
         pointer: state.aboutAPIs.pointer,
         page: state.aboutAPIs.page,
-        genre: state.aboutAPIs.genre
+        genre: state.aboutAPIs.genre,
+        rating: state.aboutAPIs.rating
     };
 }
 

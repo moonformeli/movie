@@ -2,6 +2,21 @@ export const STORE_API_MOVIES = "STORE_API_MOVIES";
 export const PAGE_MOVIE_API = "PAGE_MOVIE_API";
 export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER";
 export const SELECTED_GENRE = "SELECTED_GENRE";
+export const SET_MOVIE_RATING = "SET_MOVIE_RATING";
+export const REMOVE_RATING = "REMOVE_RATING";
+
+export function set_favorite_rating(obj) {
+    return {
+        type: SET_MOVIE_RATING,
+        obj
+    }
+}
+
+export function remove_rating() {
+    return {
+        type: REMOVE_RATING
+    }
+}
 
 export function set_selectedGenre(genre, pointer) {
     return {

@@ -26,12 +26,13 @@ export default function aboutAPIs(state = initialState, action) {
                         $push: [action.data]
                     }
                 }
-                ), rating: update(
+                )
+                , rating: update(
                     state.rating, {
                         [state.pointer]: {
                             $push: [{stars:0}]
                         }
-                    }        
+                    }
             )};
         case types.PAGE_MOVIE_API:
             return {...state, page: update(
@@ -57,6 +58,14 @@ export default function aboutAPIs(state = initialState, action) {
             return { ...state,
                 genre: action.genre,
                 pointer: action.pointer
+            }
+        case types.SET_MOVIE_RATING:
+            return { ...state, rating: action.obj}
+        case types.REMOVE_RATING:
+            return { ...state,
+                rating: [
+                    [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]  
+                ]
             }
         /*
         case types.MOVIE_RATING:
