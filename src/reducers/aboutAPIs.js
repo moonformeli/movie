@@ -13,7 +13,11 @@ const initialState = {
         {page:1},{page:1},{page:1},{page:1},{page:1},{page:1}],
         
     rating: [
-        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]  
+        [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+        [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+        [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+        [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+        [{stars:0}],[{stars:0}],[{stars:0}]  
     ]
 };
 
@@ -64,8 +68,18 @@ export default function aboutAPIs(state = initialState, action) {
         case types.REMOVE_RATING:
             return { ...state,
                 rating: [
-                    [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]  
+                    [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+                    [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+                    [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+                    [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
+                    [{stars:0}],[{stars:0}],[{stars:0}]  
                 ]
+                /*rating: update(
+                    state.rating, {
+                        [state.pointer]: {
+                            $push: [{stars:0}]
+                        }
+                    })*/
             }
         /*
         case types.MOVIE_RATING:

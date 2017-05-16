@@ -18,6 +18,7 @@ const Header = (props, context) => {
             <div className="menu">
                 <MenuItem to={'/'} active={router.isActive('/', true)}>홈</MenuItem>
                 <MenuItem to={'/movie/choose'} active={router.isActive('/movie/choose')}>영화</MenuItem>
+                <MenuItem to={'/movie/favorite'} active={router.isActive('/movie/favorite')}>선택한 영화</MenuItem>
                 <MenuItem to={'/post'} active={router.isActive('/post')}>포스트</MenuItem>
             </div>
         </div>

@@ -20,9 +20,13 @@ class Movies extends React.Component {
     constructor(props){
         super(props);
         this.state={
-          data: {},
-          genre: 28,
-          clickedNo: 0,
+            data: {},
+            genre: 28,
+            clickedNo: 0,
+            rating: [
+                [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]  
+            ],
+            movieData: []
         };
         
         this.loadMoreData = this.loadMoreData.bind(this);
@@ -33,30 +37,40 @@ class Movies extends React.Component {
     // Component Life Cycles
     // ===============
     
-    /*componentWillMount() {
-        
-    }*/
+    componentWillMount() {
+        let movies = {};
+        $.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
+            movies = data.movies;
+        });
+        this.setState({ movieData: movies });
+        // this.loadMoreData();
+    }
+    
     
     componentDidMount() {
         this.loadMoreData();
-        $.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
-            for(let i=0; i<data.movies.length; i++) {
-            }
-        });
     }
-    
-    /*componentWillReceiveProps(nextProps) {
-        if(JSON.stringify(nextProps.genre) != JSON.stringify(this.props.genre)){
-            this.props.fetchData('https://api.themoviedb.org/3/discover/movie?api_key=' + RESOURCES.KEY + 
-                '&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' + 
-                this.props.page[this.props.pointer].page + '&with_genres=' + nextProps.genre);
+    /*
+    componentWillReceiveProps(nextProps){
+    }*/
+    /*
+    shouldComponentUpdate(nextProps, nextState){
+        if(JSON.stringify(nextProps.movieData) != JSON.stringify(this.props.movieData)) {
+            console.log('다르다')
+            return true;
+        }else{
+            console.log('같다')
+            return false;
         }
     }*/
     
-    componenWillUpdate(nextProps, nextState) {
+    /*componenWillUpdate(nextProps, nextState) {
         //this.getMovieLists();
+        if(nextProps.movieData != this.props.movieData) {
+            this.setState({ movieData: nextProps.movieData});
+        }
         console.log('This means shouldComponentUpdate default value is true');
-    }
+    }*/
     
     // ===============
     // Custom Methods
@@ -75,15 +89,69 @@ class Movies extends React.Component {
             let pointer = listIndex;
             store.dispatch(actions.set_selectedGenre(genre, pointer));
         })
+        .then(() => console.log('여기는 찍히는가?'))
         .then(() => {
             this.loadMoreData();
         })
-        .then(() => console.log('뤠이팅:' + JSON.stringify(this.props.rating[this.props.pointer])));
     }
      
-    loadMoreData() {
+    loadMoreData(msg) {
         let funcs = new API_Funcs();
-        funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre);
+        
+        if(msg === undefined){
+            new Promise(resolve => resolve(funcs.empty()))
+            // .then(() => {return funcs.initialRating(this.props.movieData)})
+            .then(() => {return funcs.initialRating(this.props.page[this.props.pointer].page)})
+            .then(() => {return funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)})
+        }else{
+            new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)))
+            .then(() => {return funcs.initialRating(this.props.movieData)})
+        }
+        
+        // let promise1 = new Promise(resolve => resolve(funcs.empty()));
+        // let promise2 = new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)));
+        
+        // let promises_init = () => {return new Promise(resolve => resolve(funcs.initialRating(this.props.movieData)));}
+        // let promise_init = new Promise(resolve => resolve(funcs.initialRating(this.props.movieData)))
+        
+        // Promise.all([promise1, promise2])
+        // .then(() => {return console.log('this.props.rating after promises: ' + JSON.stringify(this.props.rating))})
+        // .then(() => {return promises_init()})
+        // .all([promises_init()])
+        // .then(() => {return console.log('this.props.rating after init :' + JSON.stringify(this.props.rating))})
+        // .catch(err => console.error(err))
+        
+        // Promise.all([promise_init])
+        // .then(() => {return console.log('this.props.rating from init: ' + JSON.stringify(this.props.rating))}) 
+        
+        // Promise.resolve(() => {return funcs.empty()})
+        /*let a = () => {new Promise((resolve, reject) => {
+            resolve(funcs.empty())
+        })
+        .then(() => {return console.log('this.props.rating after empty:' + JSON.stringify(this.props.rating))})
+        .then(() => {return funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)})
+        .then(() => {return funcs.initialRating(this.props.movieData)})
+        .then(() => {return console.log('this.props.rating after init:' + JSON.stringify(this.props.rating))})
+        .catch((err) => console.error(err))}
+        
+        a();*/
+        
+        /*let promise1 = () => {
+            new Promise(resolve => resolve(funcs.empty()))
+            .then(() => {return console.log('this.props.rating after empty:' + JSON.stringify(this.props.rating))})
+        }
+        
+        Promise.all([promise1()])
+            .then(() => {
+                return new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)))
+            })
+            .then(() => {
+                return new Promise(resolve => resolve(funcs.initialRating(this.props.movieData)))
+            })
+            
+        .then(() => {return console.log('this.props.rating after init:' + JSON.stringify(this.props.rating))})*/
+        
+        
     }
     
     render() {
@@ -136,7 +204,7 @@ class Movies extends React.Component {
                     
                 }
             })
-            .done(() => this.loadMoreData());
+            //.done(() => this.loadMoreData());
         };
         
         const movieLists = this.props.movieData[this.props.pointer].map((data, i) => {
@@ -205,7 +273,7 @@ class Movies extends React.Component {
                             springConfig={{ stiffness: 170, damping: 26 }}
                         >
                             {movieLists}
-                        <button className="btn myBtn" onClick={() => this.loadMoreData()}>더 많은 영화보기</button>
+                        <button className="btn myBtn" onClick={() => this.loadMoreData('load more data')}>더 많은 영화보기</button>
                         </SpringGrid >
                 </div>
             </div>

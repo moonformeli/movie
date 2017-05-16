@@ -47,6 +47,7 @@ export function nextPage() {
 
 export function moviesFromAPI(url) {
     return (dispatch) => {
+        Promise.resolve(
             fetch(url)
                 .then((response) => {
                     if(!response.ok) {
@@ -72,6 +73,7 @@ export function moviesFromAPI(url) {
                         dispatch(storeMovies_API(state));
                     });
                 })
-                .catch((err) => console.error(err));
+                .catch((err) => console.error(err))
+            )
         }
 }

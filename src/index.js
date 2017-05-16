@@ -12,6 +12,7 @@ import Home from './containers/Home';
 import Posts from './containers/Posts';
 import Login from './components/Login';
 import Movie from './components/Movie';
+import FavoriteMovies from './components/FavoriteMovies';
 
 import './index.css';
 
@@ -28,6 +29,7 @@ class Routing extends React.Component {
         <IndexRoute component={Home}/>
         <Route path="movie/">
           <Route path="choose" component={Movie}/>
+          <Route path="favorite" component={FavoriteMovies}/>
         </Route>
         <Route path="post" component={Posts}/>
       </Route>
