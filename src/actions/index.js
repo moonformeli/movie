@@ -1,4 +1,5 @@
 export const STORE_API_MOVIES = "STORE_API_MOVIES";
+export const STORE_FAVORITE_MOVIES = "STORE_FAVORITE_MOVIES";
 export const PAGE_MOVIE_API = "PAGE_MOVIE_API";
 export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER";
 export const SELECTED_GENRE = "SELECTED_GENRE";
@@ -29,6 +30,13 @@ export function set_selectedGenre(genre, pointer) {
 export function removeMovies_API() {
     return {
         type: RESET_MOVIE_CONTAINER
+    }
+}
+
+export function storeFavorite_movies(data) {
+    return {
+        type: STORE_FAVORITE_MOVIES,
+        data
     }
 }
 

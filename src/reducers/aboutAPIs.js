@@ -21,6 +21,15 @@ const initialState = {
     ]
 };
 
+export function aboutFavorite(state = {movieData: {}}, action) {
+    switch(action.type) {
+        case types.STORE_FAVORITE_MOVIES:
+            return { movieData: action.data }
+        default:
+            return state;
+    }
+}
+
 export default function aboutAPIs(state = initialState, action) {
     switch(action.type) {
         case types.STORE_API_MOVIES:

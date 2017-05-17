@@ -37,14 +37,14 @@ class Movies extends React.Component {
     // Component Life Cycles
     // ===============
     
-    componentWillMount() {
+    /*componentWillMount() {
         let movies = {};
         $.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
             movies = data.movies;
         });
-        this.setState({ movieData: movies });
+        // this.setState({ movieData: movies });
         // this.loadMoreData();
-    }
+    }*/
     
     
     componentDidMount() {
@@ -89,7 +89,6 @@ class Movies extends React.Component {
             let pointer = listIndex;
             store.dispatch(actions.set_selectedGenre(genre, pointer));
         })
-        .then(() => console.log('여기는 찍히는가?'))
         .then(() => {
             this.loadMoreData();
         })
@@ -100,58 +99,12 @@ class Movies extends React.Component {
         
         if(msg === undefined){
             new Promise(resolve => resolve(funcs.empty()))
-            // .then(() => {return funcs.initialRating(this.props.movieData)})
             .then(() => {return funcs.initialRating(this.props.page[this.props.pointer].page)})
             .then(() => {return funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)})
         }else{
             new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)))
             .then(() => {return funcs.initialRating(this.props.movieData)})
         }
-        
-        // let promise1 = new Promise(resolve => resolve(funcs.empty()));
-        // let promise2 = new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)));
-        
-        // let promises_init = () => {return new Promise(resolve => resolve(funcs.initialRating(this.props.movieData)));}
-        // let promise_init = new Promise(resolve => resolve(funcs.initialRating(this.props.movieData)))
-        
-        // Promise.all([promise1, promise2])
-        // .then(() => {return console.log('this.props.rating after promises: ' + JSON.stringify(this.props.rating))})
-        // .then(() => {return promises_init()})
-        // .all([promises_init()])
-        // .then(() => {return console.log('this.props.rating after init :' + JSON.stringify(this.props.rating))})
-        // .catch(err => console.error(err))
-        
-        // Promise.all([promise_init])
-        // .then(() => {return console.log('this.props.rating from init: ' + JSON.stringify(this.props.rating))}) 
-        
-        // Promise.resolve(() => {return funcs.empty()})
-        /*let a = () => {new Promise((resolve, reject) => {
-            resolve(funcs.empty())
-        })
-        .then(() => {return console.log('this.props.rating after empty:' + JSON.stringify(this.props.rating))})
-        .then(() => {return funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)})
-        .then(() => {return funcs.initialRating(this.props.movieData)})
-        .then(() => {return console.log('this.props.rating after init:' + JSON.stringify(this.props.rating))})
-        .catch((err) => console.error(err))}
-        
-        a();*/
-        
-        /*let promise1 = () => {
-            new Promise(resolve => resolve(funcs.empty()))
-            .then(() => {return console.log('this.props.rating after empty:' + JSON.stringify(this.props.rating))})
-        }
-        
-        Promise.all([promise1()])
-            .then(() => {
-                return new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)))
-            })
-            .then(() => {
-                return new Promise(resolve => resolve(funcs.initialRating(this.props.movieData)))
-            })
-            
-        .then(() => {return console.log('this.props.rating after init:' + JSON.stringify(this.props.rating))})*/
-        
-        
     }
     
     render() {
