@@ -12,6 +12,56 @@ class API_Funcs{
             ];
     }
     
+    ratingChanged(newRating, pointer, i, data) {
+        let state = {
+                id: localStorage.getItem('loginId'),
+                title: data.original_title,
+                rating: newRating,
+                img: data.poster_path,
+                genre: pointer,
+                index: i,
+                isThisFirstTimeToMakeId: true
+            };
+            
+            
+            $.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
+                if(data == null || data.length == 0 || data == undefined || data==0) {
+                    $.post('https://moon-test-heroku.herokuapp.com/insert/favorite/movie', state, function(result, stats){
+                        console.log(JSON.stringify(result));
+                    });
+                }else{
+                    let bool = false;
+                    let nextState = {};
+                    
+                    //별점을 누른 영화가 이미 사용자가 선택한 적이 있는 영화인지 검색
+                    
+                    for(let i=0; i<data.movies.length; i++) {
+                        if(data.movies[i].title == state.title) {
+                            bool = true;
+                            nextState.username = data.id;
+                            nextState.title = data.movies[i].title;
+                            nextState.newRating = newRating;
+                        }
+                        if(bool) break;
+                    }
+                
+                    //영화가 이미 등록된 적이 있는 경우
+                    if(bool) {
+                        $.post('https://moon-test-heroku.herokuapp.com/update/favorite/movie', nextState, function(result, stats){
+                            console.log('Update is done');
+                        });
+                    }else{
+                        //그렇지 않은 경우는 해당 영화에 대한 정보를 등록한다.
+                        state.isThisFirstTimeToMakeId = false;
+                        $.post('https://moon-test-heroku.herokuapp.com/insert/favorite/movie', state, function(result,stats){
+                            console.log('Create ID & Update is done');
+                        });
+                    }
+                    
+                }
+            })
+    }
+    
     favoriteMovies() {
         return new Promise(resolve => 
             resolve($.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
@@ -53,6 +103,8 @@ class API_Funcs{
                     // 별점 셋팅
                     // Initialize rating of each favorite movie
                     let idx = 0;
+                    console.log('함수 안에서의 page?: ' + page);
+                    console.log('page*20?' + page*20);
                     for(let i=0; i<18; i++){
                         for(let j=0; j<page*20; j++){
                             if(sortedItemByGenre[i].length > idx && sortedItemByGenre[i][idx].index === j) {

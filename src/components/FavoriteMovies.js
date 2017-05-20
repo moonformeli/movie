@@ -4,19 +4,31 @@ import { store } from '../index';
 import { connect } from 'react-redux';
 import ReactStars from 'react-stars';
 import ReactTooltip from 'react-tooltip';
+import $ from 'jquery';
 
+import '../../public/styles/FavoriteMovies.css';
 import API_Funcs from '../resources/API_Funcs';
 
-const propTypes = {};
+const propTypes = {
+    favoriteMovies: React.PropTypes.object
+};
 
-const defaultProps = {};
+const defaultProps = {
+    favoriteMovies: {}
+};
 
 class FavoriteMovies extends React.Component {
     
     constructor(){
         super();
+        this.state = {
+            movieData: {
+                movies: []
+            }
+        }
         
         this.loadData = this.loadData.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
     
     /* 
@@ -26,6 +38,7 @@ class FavoriteMovies extends React.Component {
     */
     componentDidMount() {
         this.loadData();
+        this.setState({ movieData: this.props.favoriteMovies });
     }
     
     /* 
@@ -39,34 +52,70 @@ class FavoriteMovies extends React.Component {
         funcs.favoriteMovies();
     }
     
+    removeItem(data) {
+        let nextState = {
+            username: localStorage.getItem('loginId'),
+            title: data.title
+        };
+        $.post('https://moon-test-heroku.herokuapp.com/favorite/deleteOne', nextState, function(result, stats){
+            console.log(result);
+        })
+        .done(this.loadData());
+    }
+    
     render(){
         
-        const movieLists = JSON.stringify(this.props.favoriteMovies.movies).map((data, i) => {
+        const ratingChanged = (newRating, i, data) => {
+            // let funcs = new API_Funcs();
+            // funcs.ratingChanged(newRating, this.props.pointer, i, data);
+            let state = {
+                username: localStorage.getItem('loginId'),
+                title: data.title,
+                newRating: newRating
+            };
+            
+            $.post('https://moon-test-heroku.herokuapp.com/update/favorite/movie', state, function(result, stats){
+                console.log('Update is done, ' + JSON.stringify(result));
+            })
+        }
+        
+        const mouseOver = (i) => {
+            console.log(i);
+            $(`#cover-${i}`).removeClass('no-show');
+        }
+        
+        const mouseLeave = (i) => {
+            $(`#cover-${i}`).addClass('no-show');
+        }
+        
+        const movieLists = this.props.favoriteMovies.movies.map((data, i) => {
             return (
-                <li key={`img-${i}-${data.original_title}`}>
-                    <img
-                        // data-tip
-                        // data-for={`img-${i}`}
-                        className="img-rounded test"
-                        // onMouseOver={this.handleMouseOver.bind(this, data)}
-                        src={data.poster_path}
-                    /> 
-                    {/*<div className="rating">
-                        <ReactStars
-                            iKey={i}
-                            data={data}
-                            //value={this.props.movieData[this.props.pointer][i].rating}
-                            value={data.rating}
-                            count={5}
-                            // onChange={ratingChanged}
-                            size={24}
-                            color2={'#ffd700'}
-                        />
-                    </div>*/}
-                    {/*<ReactTooltip id={`img-${i}`}>
-                        <p><span className="tip glyphicon glyphicon-eye-open" aria-hidden="true"> {this.state.data.vote_count * 4} </span></p>
-                        <p><span className="tip glyphicon glyphicon-heart" aria-hidden="true"> {this.state.data.vote_arrange} </span></p>
-                    </ReactTooltip>*/}
+                <li key={`img-${i}-${data.title}`}>
+                    <div onMouseOver={() => mouseOver(i)} onMouseLeave={() => mouseLeave(i)} onClick={() => this.removeItem(data)}>
+                        <img
+                            // data-tip
+                            // data-for={`img-${i}`}
+                            className="img-rounded"
+                            src={data.img}
+                        /> 
+                        <div className="rating">
+                            <ReactStars
+                                iKey={i}
+                                data={data}
+                                value={data.rating}
+                                count={5}
+                                onChange={ratingChanged}
+                                size={24}
+                                color2={'#ffd700'}
+                            />
+                        </div>
+                        <div id={`cover-${i}`} className="cover no-show" >
+                            <div className="del-label">
+                                <p>삭제하려면</p>
+                                <p>클릭하세요</p>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             );
         });
@@ -86,7 +135,6 @@ class FavoriteMovies extends React.Component {
                             {movieLists}
                         </SpringGrid >
                 </div>
-                결과:{JSON.stringify(this.props.favoriteMovies.movies)}
             </div>
         );
     }
@@ -98,6 +146,7 @@ FavoriteMovies.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
     return {
+        pointer: state.aboutAPIs.pointer,
         favoriteMovies: state.aboutFavorite.movieData
     }
 }

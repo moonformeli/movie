@@ -21,7 +21,7 @@ const initialState = {
     ]
 };
 
-export function aboutFavorite(state = {movieData: {}}, action) {
+export function aboutFavorite(state = {movieData: { movies: []}}, action) {
     switch(action.type) {
         case types.STORE_FAVORITE_MOVIES:
             return { movieData: action.data }
@@ -30,7 +30,7 @@ export function aboutFavorite(state = {movieData: {}}, action) {
     }
 }
 
-export default function aboutAPIs(state = initialState, action) {
+export function aboutAPIs(state = initialState, action) {
     switch(action.type) {
         case types.STORE_API_MOVIES:
             return {...state, movieData: update(
@@ -60,13 +60,9 @@ export default function aboutAPIs(state = initialState, action) {
         case types.RESET_MOVIE_CONTAINER:
             return {
               ...state, movieData: [ [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[] ], 
-              page: update(
-                    state.page, {
-                        [state.pointer]: {
-                            page: {$set:1}
-                        }
-                    }            
-            )};
+              page:[{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},{page:1},
+                    {page:1},{page:1},{page:1},{page:1},{page:1},{page:1}]
+              };
         case types.SELECTED_GENRE:
             return { ...state,
                 genre: action.genre,

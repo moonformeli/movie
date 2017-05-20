@@ -53,16 +53,13 @@ class Movies extends React.Component {
     /*
     componentWillReceiveProps(nextProps){
     }*/
-    /*
+    
     shouldComponentUpdate(nextProps, nextState){
-        if(JSON.stringify(nextProps.movieData) != JSON.stringify(this.props.movieData)) {
-            console.log('다르다')
+        if(JSON.stringify(nextProps.rating) != JSON.stringify(this.props.rating)) {
             return true;
-        }else{
-            console.log('같다')
-            return false;
         }
-    }*/
+        return false;
+    }
     
     /*componenWillUpdate(nextProps, nextState) {
         //this.getMovieLists();
@@ -102,8 +99,11 @@ class Movies extends React.Component {
             .then(() => {return funcs.initialRating(this.props.page[this.props.pointer].page)})
             .then(() => {return funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)})
         }else{
+            
+            console.log('currentPage: ' + this.props.page[this.props.pointer].page)
             new Promise(resolve => resolve(funcs.movieFromAPIServer(this.props.page[this.props.pointer].page, this.props.genre)))
-            .then(() => {return funcs.initialRating(this.props.movieData)})
+            .then(() => {return console.log('nextPage: ' + this.props.page[this.props.pointer].page)})
+            .then(() => {return funcs.initialRating(this.props.page[this.props.pointer].page)})
         }
     }
     
@@ -157,7 +157,6 @@ class Movies extends React.Component {
                     
                 }
             })
-            //.done(() => this.loadMoreData());
         };
         
         const movieLists = this.props.movieData[this.props.pointer].map((data, i) => {
