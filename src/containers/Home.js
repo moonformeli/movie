@@ -13,7 +13,9 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <BigText>홈</BigText>
+                <ul>
+                    <li>사이트 소개</li>
+                </ul>
             </div>
         );
     }
