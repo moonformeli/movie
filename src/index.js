@@ -34,13 +34,15 @@ class Routing extends React.Component {
         <Route path="post" component={Posts}/>
       </Route>
     </Router>  
+    
     );
   }
 }
 
 ReactDOM.render(
   <Provider store={store}>
-    {localStorage.getItem('loginId') ? <Routing /> : <Login />}
+    {/*{localStorage.getItem('loginId') ? <Routing /> : <Login />}*/}
+    {localStorage.getItem('loginId') ? <App /> : <Login />}
   </Provider>,
   document.getElementById('root')
 );
