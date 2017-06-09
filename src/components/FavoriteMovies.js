@@ -80,7 +80,7 @@ class FavoriteMovies extends React.Component {
         }
         
         const mouseOver = (data,i) => {
-            console.log('ID: ' + data.movieID);
+            console.log('영화: ' + JSON.stringify(data));
             $(`#cover-${i}`).removeClass('no-show');
         }
         

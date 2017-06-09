@@ -72,7 +72,7 @@ class Movies extends React.Component {
     // ===============
     
     handleMouseOver(data){
-        console.log(JSON.stringify(data))
+        // console.log(JSON.stringify(data))
         this.setState({
             data: data
         });
@@ -116,9 +116,9 @@ class Movies extends React.Component {
                 img: data.poster_path,
                 genre: this.props.pointer,
                 index: i,
+                movieID: data.movieID,
                 isThisFirstTimeToMakeId: true
             };
-            
             
             $.post('https://moon-test-heroku.herokuapp.com/findUser/favorite/movie', {id: localStorage.getItem('loginId')}, function(data, status){
                 if(data == null || data.length == 0 || data == undefined || data==0) {
