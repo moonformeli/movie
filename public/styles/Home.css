@@ -1,5 +1,6 @@
 #carousel-generic {
     height:420px;
+    border-bottom:2px solid #AAAAAA;
 }
 
 .carousel-inner {
@@ -46,9 +47,18 @@
      transition: all 0.3s;
     }  
 
-.service a:hover .icons  { background-color:#0080C0;}
+.service a:hover .icons  { 
+    background-color:#0080C0;
+    border-color:#0080C0;
+}
 .service a:hover .icontxt h4 { color: #0080FF; }
 
 .container {
     max-width:1000px !important;
+}
+
+footer {
+    border-top:2px solid #AAAAAA;
+    height:300px;
+    background:#5112AB;
 }

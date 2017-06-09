@@ -49,3 +49,8 @@ li {
     background: #009688;
     color: #ffffff;
 }
+
+.tip {
+    width:100px;
+    height:80px;
+}

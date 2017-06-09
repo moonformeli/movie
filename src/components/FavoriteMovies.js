@@ -79,8 +79,8 @@ class FavoriteMovies extends React.Component {
             })
         }
         
-        const mouseOver = (i) => {
-            console.log(i);
+        const mouseOver = (data,i) => {
+            console.log('ID: ' + data.movieID);
             $(`#cover-${i}`).removeClass('no-show');
         }
         
@@ -91,7 +91,11 @@ class FavoriteMovies extends React.Component {
         const movieLists = this.props.favoriteMovies.movies.map((data, i) => {
             return (
                 <li key={`img-${i}-${data.title}`}>
-                    <div onMouseOver={() => mouseOver(i)} onMouseLeave={() => mouseLeave(i)} onClick={() => this.removeItem(data)}>
+                    <div 
+                        onMouseOver={() => mouseOver(data, i)} 
+                        onMouseLeave={() => mouseLeave(i)} 
+                        onClick={() => this.removeItem(data)}
+                    >
                         <img
                             // data-tip
                             // data-for={`img-${i}`}

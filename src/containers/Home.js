@@ -46,6 +46,7 @@ class Home extends React.Component {
                         <span className="sr-only">Next</span>
                     </a>
                 </div> {/* End Carousel */}
+                {/* Start section */}
                 <div className="container">
                     <div className="row service">
                         <div className="col-xs-6 col-md-3">  
@@ -59,13 +60,13 @@ class Home extends React.Component {
                                 </a>
                             </div>                 
                         </div>         
-                        <div className="col-xs-6 col-md-3"> 
+                        <div className="col-xs-6 col-md-4"> 
                             <div className="row">
                                 <a href="#">
-                                    <div className="col-xs-4 col-md-12"> <span className="glyphicon glyphicon-phone icons"> </span></div>
+                                    <div className="col-xs-4 col-md-12"> <span className="glyphicon glyphicon-thumbs-up icons"> </span></div>
                                     <div className="col-xs-8 col-md-12 icontxt">
-                                        <h4>Fully responsive</h4>
-                                        <p>9pixelstudio에서 만드는 웹 사이트는 반응형 웹 사이트를 기본으로 작업합니다.</p>
+                                        <h4>Vote for favorite movies</h4>
+                                        <p>좋아하는 영화들을 직접 평가해보세요. 평가는 개인 성향 분석의 자료로 활용됩니다.</p>
                                     </div>
                                 </a> 
                             </div>                                         
@@ -73,27 +74,32 @@ class Home extends React.Component {
                         <div className="col-xs-6 col-md-3"> 
                             <div className="row">
                                 <a href="#">
-                                    <div className="col-xs-4 col-md-12"><span className="glyphicon glyphicon-refresh icons"> </span></div>
+                                    <div className="col-xs-4 col-md-12"><span className="glyphicon glyphicon-link icons"> </span></div>
                                     <div className="col-xs-8 col-md-12 icontxt">
-                                        <h4>Very flexible</h4>
-                                        <p>HTML5와 CSS3 기반으로 제작된 웹 페이지는 수정과 유지 보수가 빠르고 간편합니다.</p>
+                                        <h4>Matching system</h4>
+                                        <p>매칭 시스템으로 분석된 추천 영화들을 즐겨보세요.</p>
                                     </div>
                                 </a>    
                             </div> 
                         </div>
-                        <div className="col-xs-6 col-md-3"> 
+                        <div className="col-xs-6 col-md-2"> 
                             <div className="row">
                                 <a href="#">
                                     <div className="col-xs-4 col-md-12"><span className="glyphicon glyphicon-user icons"> </span></div>
                                     <div className="col-xs-8 col-md-12 icontxt">
-                                        <h4>For customer</h4>
-                                        <p>고객의 요구에 따른 최상의 결과물을 제공해 드립니다.</p>
+                                        <h4>By customers</h4>
+                                        <p>관객들의 객관적인 평가에 의해 선별된 영화들입니다.</p>
                                     </div>
                                 </a> 
                             </div>                 
                         </div>
                     </div>
-                </div>
+                </div>{/* End section */}
+                {/* Start footer */}
+                <footer className="container-fluid">
+                    <div>
+                    </div>
+                </footer>
             </div>
         );
     }

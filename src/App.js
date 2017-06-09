@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 
 import Home from './containers/Home';
+import Movie from './components/Movie';
+import FavoriteMovies from './components/FavoriteMovies';
+import Recommend from './components/Recommend';
 import Header from './components/Header';
 import Posts from './containers/Posts';
 import { Link } from 'react-router';
@@ -38,7 +41,11 @@ class App extends Component {
                 case 0:
                     return <Home />
                 case 1:
-                    return <Posts />
+                    return <Movie />
+                case 2:
+                    return <FavoriteMovies />
+                case 3:
+                    return <Recommend />
                 default:
                     return (
                 <div>

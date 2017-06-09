@@ -20,6 +20,7 @@ class API_Funcs{
                 img: data.poster_path,
                 genre: pointer,
                 index: i,
+                movieID: data.id,
                 isThisFirstTimeToMakeId: true
             };
             
@@ -161,6 +162,7 @@ class API_Funcs{
                 state.vote_count = data.vote_count;
                 state.poster_path = "http://image.tmdb.org/t/p/w185/" + data.poster_path;
                 state.popularity = data.popularity;
+                state.movieID = data.id;
                 
                 store.dispatch(actions.storeMovies_API(state));
             });

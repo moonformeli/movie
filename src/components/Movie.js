@@ -13,7 +13,13 @@ import '../../public/styles/Movies.css';
 
 const defaultProps = {};
 
-const propTypes = {};
+const propTypes = {
+    movieData: React.PropTypes.array,
+    pointer: React.PropTypes.number,
+    page: React.PropTypes.array,
+    genre: React.PropTypes.number,
+    rating: React.PropTypes.array
+};
 
 class Movies extends React.Component {
     
@@ -61,19 +67,12 @@ class Movies extends React.Component {
         return false;
     }
     
-    /*componenWillUpdate(nextProps, nextState) {
-        //this.getMovieLists();
-        if(nextProps.movieData != this.props.movieData) {
-            this.setState({ movieData: nextProps.movieData});
-        }
-        console.log('This means shouldComponentUpdate default value is true');
-    }*/
-    
     // ===============
     // Custom Methods
     // ===============
     
     handleMouseOver(data){
+        console.log(JSON.stringify(data))
         this.setState({
             data: data
         });
@@ -181,9 +180,11 @@ class Movies extends React.Component {
                             color2={'#ffd700'}
                         />
                     </div>
-                    <ReactTooltip id={`img-${i}`}>
-                        <p><span className="tip glyphicon glyphicon-eye-open" aria-hidden="true"> {this.state.data.vote_count * 4} </span></p>
-                        <p><span className="tip glyphicon glyphicon-heart" aria-hidden="true"> {this.state.data.vote_arrange} </span></p>
+                    <ReactTooltip id={`img-${i}`} class="tip">
+                        {/*<p><span className="tip glyphicon glyphicon-eye-open" aria-hidden="true"> {this.state.data.vote_count * 4} </span></p>
+                        <p><span className="tip glyphicon glyphicon-heart" aria-hidden="true"> {this.state.data.vote_arrange} </span></p>*/}
+                        <p><span className="glyphicon glyphicon-eye-open" aria-hidden="true"> {data.vote_count * 4} </span></p>
+                        <p><span className="glyphicon glyphicon-heart" aria-hidden="true"> {data.vote_arrange} </span></p>
                     </ReactTooltip>
                 </li>
             );
