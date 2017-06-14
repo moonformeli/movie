@@ -1,0 +1,54 @@
+/*.more {*/
+/*    position:absolute;*/
+/*    bottom:10px;*/
+/*    right:500px;*/
+/*}*/
+
+#rec-wrapper {
+    position:relative;
+}
+
+.Grid-list {
+    position: relative;
+    top: 50px;
+    left: 10%;
+}
+
+.left {
+    /*float: left;*/
+}
+
+.recBtn {
+    position:relative;
+    left:10%;
+    top:200px;
+}
+
+.recImg {
+    position:absolute;
+    top:30%;
+    left:45%;
+}
+
+.btn-togo {
+    position:absolute;
+    top:65%;
+    left:40%;
+}
+
+#goToFavorite h4 {
+    font-weight: bold;
+    font-size:14pt;
+    position:absolute;
+    top:55%;
+    left:30%;
+}
+
+#goToFavorite .h4-center {
+    top:60%;
+    left:39%;
+}
+
+#goToFavorite span {
+    text-decoration:underline !important;
+}

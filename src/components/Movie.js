@@ -226,7 +226,7 @@ class Movies extends React.Component {
                             springConfig={{ stiffness: 170, damping: 26 }}
                         >
                             {movieLists}
-                        <button className="btn myBtn" onClick={() => this.loadMoreData('load more data')}>더 많은 영화보기</button>
+                            <button className="btn myBtn" onClick={() => this.loadMoreData('load more data')}>더 많은 영화보기</button>
                         </SpringGrid >
                 </div>
             </div>

@@ -3,8 +3,12 @@ import { SpringGrid  } from 'react-stonecutter';
 import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import {store} from '../index';
+import * as actions from '../actions';
 
+import Movie from './Movie';
 import API_Funcs from '../resources/API_Funcs';
+import '../../public/styles/Recommendation.css';
 
 const defaultProps = {
     favoriteMovies: {},
@@ -21,18 +25,22 @@ class Recommend extends React.Component {
     constructor(){
         super();
         this.state = {
-            pickedMovies: []
+            pickedMovies: [],
+            renderMovie: false
         }
         
         this.recommendation = this.recommendation.bind(this);
         this.loadData = this.loadData.bind(this);
         this.randomRange = this.randomRange.bind(this);
         this.distinct = this.distinct.bind(this);
+        this.emptyAndLoad = this.emptyAndLoad.bind(this);
+        this.goToMovie = this.goToMovie.bind(this);
     }
     
     /* Components life cycle */
     
     componentDidMount(){
+        this.setState({ renderMovie:false });
         this.loadData();
     }
     
@@ -89,6 +97,15 @@ class Recommend extends React.Component {
         .then(() => {return this.recommendation()});
     }
     
+    emptyAndLoad() {
+        store.dispatch(actions.emptyRecommendation());
+        this.loadData();
+    }
+    
+    goToMovie() {
+        this.setState({ renderMovie:true });
+    }
+    
     render(){
         
         const movieLists = this.props.recommendation.map((data, i) => {
@@ -112,26 +129,37 @@ class Recommend extends React.Component {
         
         const goToFavorite = () => {
             return(
-                <div>
-                    없다
+                <div id="goToFavorite">
+                    <img
+                        className="recImg"
+                        src="https://previews.123rf.com/images/nasirkhan/nasirkhan1207/nasirkhan120700085/14615603-3d-render-of-man-holding-oops-road-sign-3d-illustration-of-human-character-Stock-Illustration.jpg"
+                        width="150"
+                        height="198"
+                    />
+                    <h4>영화를 너무 적게 고르셨군요! 최소한 10개는 추천해주셔야 합니다.</h4>
+                    <h4 className="h4-center">앞으로 <span><strong>{10 - this.props.favoriteMovies.movies.length}</strong></span> 개의 영화를 더 추천해주세요!</h4>
                 </div>
             );
         }
         
         const showRecommendation = () => {
             return(
-                <div className="Grid-list left">
-                        <SpringGrid 
-                            component="ul"
-                            columns={5}
-                            columnWidth={200}
-                            gutterWidth={10}
-                            gutterHeight={200}
-                            itemHeight={150}
-                            springConfig={{ stiffness: 170, damping: 26 }}
-                        >
-                            {movieLists}
-                        </SpringGrid >
+                <div id="rec-wrapper">
+                    <div className="Grid-list left">
+                            <SpringGrid 
+                                component="ul"
+                                columns={5}
+                                columnWidth={200}
+                                gutterWidth={10}
+                                gutterHeight={200}
+                                itemHeight={150}
+                                springConfig={{ stiffness: 170, damping: 26 }}
+                            >
+                                {movieLists}
+                            </SpringGrid >
+                    </div>
+                    <button className="btn myBtn recBtn" onClick={() => this.loadData()}>더 추천받기</button>
+                    <button className="btn myBtn recBtn" onClick={() => this.emptyAndLoad()}>다시 추천받기</button>
                 </div>
             );
         }
