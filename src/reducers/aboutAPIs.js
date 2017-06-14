@@ -21,6 +21,21 @@ const initialState = {
     ]
 };
 
+export function aboutRecommendation(state = {recommendation: []}, action) {
+    switch(action.type) {
+        case types.RECOMMEND_MOVIES:
+            return { ...state, recommendation:update(
+                state.recommendation, {
+                    $push: [action.data]
+                }    
+            )};
+        case types.EMPTY_RECOMMENDATION:
+            return { recommendation: [] };
+        default:
+            return state;
+    }
+}
+
 export function aboutFavorite(state = {movieData: { movies: []}}, action) {
     switch(action.type) {
         case types.STORE_FAVORITE_MOVIES:
@@ -79,50 +94,7 @@ export function aboutAPIs(state = initialState, action) {
                     [{stars:0}],[{stars:0}],[{stars:0}],[{stars:0}],
                     [{stars:0}],[{stars:0}],[{stars:0}]  
                 ]
-                /*rating: update(
-                    state.rating, {
-                        [state.pointer]: {
-                            $push: [{stars:0}]
-                        }
-                    })*/
             }
-        /*
-        case types.MOVIE_RATING:
-            return {...state, rating: update(
-                state.rating, {
-                    [state.pointer]: {
-                        [action.index]: {
-                            stars: {$set:action.stars}                            
-                        }
-                    }
-                }
-            )};
-        case types.MOVIE_RATING_HEROKU:
-            return {...state, rating: update(
-                state.rating, {
-                    [action.pointer]: {
-                        [action.index]: {
-                            stars: {$set:action.stars}
-                        }
-                    }
-                }    
-            )};
-        case types.MOVIE_GENRE:
-            return {...state, 
-                genre: action.genre,
-                pointer: action.index
-            };
-        case types.PAGE_FIRST_LOADING:
-            return {...state, page: update(
-                state.page, {
-                    [state.pointer]: {
-                        isFirst: {$set:false}
-                    }
-                }
-            )};
-        case types.FETCH_DATA_SUCCESS:
-            return {...state, data: action.data};  
-            */
         default:
             return state;
     }

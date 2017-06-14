@@ -1,6 +1,6 @@
-import {aboutAPIs, aboutFavorite} from './aboutAPIs';
+import {aboutAPIs, aboutFavorite, aboutRecommendation} from './aboutAPIs';
 import { combineReducers } from 'redux';
 
-const reducers = combineReducers({aboutAPIs, aboutFavorite});
+const reducers = combineReducers({aboutAPIs, aboutFavorite, aboutRecommendation});
 
 export default reducers;

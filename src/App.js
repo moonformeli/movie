@@ -20,6 +20,12 @@ class App extends Component {
         }
         
         this.menuToggle = this.menuToggle.bind(this);
+        this.logOut = this.logOut.bind(this);
+    }
+    
+    logOut(){
+        localStorage.removeItem('loginId');
+        window.location.href='/';
     }
     
     menuToggle(num) {
@@ -47,43 +53,7 @@ class App extends Component {
                 case 3:
                     return <Recommend />
                 default:
-                    return (
-                <div>
-                    <div>first</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div><div>Hi</div><div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div><div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div><div>Hi</div>
-                    <div>Hi</div><div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    <div>Hi</div>
-                    
-                    <div>Hi</div>
-                    <div>Hi</div>
-                </div>
-            )
+                    return;
             }
             
         }
@@ -107,7 +77,7 @@ class App extends Component {
                         <li><button className="nav-btn" onClick={() => this.menuToggle(1)}>movies</button></li>
                         <li><button className="nav-btn" onClick={() => this.menuToggle(2)}>favorite</button></li>
                         <li><button className="nav-btn" onClick={() => this.menuToggle(3)}>recommend</button></li>
-                        <li><button className="nav-btn" onClick={() => this.menuToggle(4)}>log out</button></li>
+                        <li><button className="nav-btn" onClick={() => this.logOut()}>log out</button></li>
                       </ul>
                     </div>
                 </nav>

@@ -71,6 +71,44 @@ class API_Funcs{
         );
     }
     
+    getSimilarMovies(movieID) {
+        return new Promise(resolve => 
+            resolve($.ajax({
+                url:'https://api.themoviedb.org/3/movie/' + movieID + '/similar?api_key=' + KEY + '&language=en-US&page=1',
+                success: function(result) {
+                    return result;
+                }
+            })))
+            .then((result) => {
+                let randomPage = Math.floor((Math.random() * (result.total_pages - 1 + 1)) + 1);
+                return $.ajax({
+                url:'https://api.themoviedb.org/3/movie/' + movieID + '/similar?api_key=' + KEY + '&language=en-US&page=' + randomPage,
+                success: function(result) {
+                    if(result.results.length !== 1) {
+                        let data = [];
+                        let bool = true;
+                        let rand1 = Math.floor((Math.random() * ((result.results.length-1) - 1 + 1)) + 1);
+                        let rand2 = 0;
+                        
+                        while(bool) {
+                            rand2 = Math.floor((Math.random() * ((result.results.length-1) - 1 + 1)) + 1);
+                            if(rand1 !== rand2) bool=false;
+                        }
+                        // data[0] = result.results[rand1];
+                        // data[1] = result.results[rand2];
+                        console.log('rand1 arr:' + result.results[rand1]);
+                        console.log('rand2 arr:' + result.results[rand2]);
+                        store.dispatch(actions.storeRecommend_movies(result.results[rand1]));
+                        store.dispatch(actions.storeRecommend_movies(result.results[rand2]));
+                    }else{
+                        let data = result.results[0];
+                        store.dispatch(actions.storeRecommend_movies(data));
+                    }
+                }
+            })
+            });
+    }
+    
     initialRating(page) {
         let that = this;
         return new Promise((resolve, reject) => {

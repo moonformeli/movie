@@ -1,1 +1,1 @@
-movie similarity = https://developers.themoviedb.org/3/movies/get-similar-movies
+movie similarity = https://api.themoviedb.org/3/movie/{movie_id}/similar?api_key=<<api_key>>&language=en-US&page=1

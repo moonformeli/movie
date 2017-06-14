@@ -5,6 +5,21 @@ export const RESET_MOVIE_CONTAINER = "RESET_MOVIE_CONTAINER";
 export const SELECTED_GENRE = "SELECTED_GENRE";
 export const SET_MOVIE_RATING = "SET_MOVIE_RATING";
 export const REMOVE_RATING = "REMOVE_RATING";
+export const RECOMMEND_MOVIES = "RECOMMEND_MOVIES";
+export const EMPTY_RECOMMENDATION = "EMPTY_RECOMMENDATION";
+
+export function emptyRecommendation() {
+    return {
+        type: EMPTY_RECOMMENDATION
+    }
+}
+
+export function storeRecommend_movies(data) {
+    return {
+        type: RECOMMEND_MOVIES,
+        data
+    }
+}
 
 export function set_favorite_rating(obj) {
     return {

@@ -98,6 +98,7 @@ class Home extends React.Component {
                 {/* Start footer */}
                 <footer className="container-fluid">
                     <div>
+                        Copyrightⓒ2017 by Moon. All Page content is property of Moon.
                     </div>
                 </footer>
             </div>
