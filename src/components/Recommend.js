@@ -158,6 +158,7 @@ class Recommend extends React.Component {
                                 {movieLists}
                             </SpringGrid >
                     </div>
+                    <div className="clear"></div>
                     <button className="btn myBtn recBtn" onClick={() => this.loadData()}>더 추천받기</button>
                     <button className="btn myBtn recBtn" onClick={() => this.emptyAndLoad()}>다시 추천받기</button>
                 </div>
